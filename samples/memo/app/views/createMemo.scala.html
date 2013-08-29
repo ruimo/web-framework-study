@@ -1,0 +1,51 @@
+@(myForm: Form[Memo], list: Seq[(Memo, Category)], categories: Seq[(String, String)])(implicit flash: Flash)
+
+@import helper._
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.f) }
+
+@main("メモの作成") {
+
+<h2>メモの作成</h2>
+
+@flash.get("message").map { msg =>
+  <div class="globalMessage">
+    @msg
+  </div>
+}
+
+@form(action = routes.Application.createMemo()) {
+  <fieldset>
+    @select(
+      myForm("category"),
+      categories,
+      '_label -> "カテゴリ", '_showConstraints -> false
+    )
+    @inputText(myForm("memo"), '_label -> "メモ")
+  </fieldset>
+
+  <input type="submit" value="作成">
+}
+
+@if(list.isEmpty) {
+  <div>レコードがありません。</div>
+} else {
+  <table>
+    <thead>
+      <tr>
+        <th>カテゴリ名</th>
+        <th>メモ</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @list.map { t =>
+        <tr>
+          <td>@t._2.name</td>
+          <td>@t._1.memo</td>
+        </tr> 
+      }
+    </tbody>
+  </table>
+}
+
+}

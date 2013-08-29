@@ -1,0 +1,40 @@
+@(myForm: Form[Category], list: Seq[Category])(implicit flash: Flash)
+
+@import helper._
+@implicitFieldConstructor = @{ FieldConstructor(twitterBootstrapInput.f) }
+
+@main("カテゴリの作成") {
+
+<h2>カテゴリの作成</h2>
+
+@flash.get("message").map { msg =>
+  <div class="globalMessage">
+    @msg
+  </div>
+}
+
+@form(action = routes.Application.createCategory()) {
+  <fieldset>
+    @inputText(myForm("name"), '_label -> "カテゴリ名")
+  </fieldset>
+
+  <input type="submit" value="作成">
+}
+
+@if(list.isEmpty) {
+  <div>レコードがありません。</div>
+} else {
+  <table>
+    <thead>
+      <tr>
+        <th>カテゴリ名</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @list.map { c => <tr><td>@c.name</td></tr> }
+    </tbody>
+  </table>
+}
+
+}

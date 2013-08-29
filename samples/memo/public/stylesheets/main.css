@@ -1,0 +1,8 @@
+.globalMessage, .globalErrorMessage, .menuItem {
+    padding: 10px;
+    margin-bottom: 5px;
+}
+
+.globalMessage {
+    background: AliceBlue;
+}

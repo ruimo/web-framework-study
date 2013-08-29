@@ -1,0 +1,18 @@
+package models
+
+import org.specs2.mutable._
+
+import play.api.test._
+import play.api.test.Helpers._
+
+class CategorySpec extends Specification {
+  "Category" should {
+    "挿入したレコードを照会できる" in {
+      running(FakeApplication(additionalConfiguration = inMemoryDatabase())) {
+        val optId = Category.insert(Category(name = "買い物"))
+        val optCat = Category.findById(optId.get)
+        optCat.get.name === "買い物"
+      }
+    }
+  }
+}

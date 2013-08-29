@@ -1,0 +1,8 @@
+import anorm.{NotAssigned, Pk}
+
+case class Message(
+     id: Pk[Long] = NotAssigned,
+      message: String,
+       createdTime: long,
+        categoryId: Option[Long]
+)
